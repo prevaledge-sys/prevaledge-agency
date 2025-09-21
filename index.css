@@ -1,0 +1,197 @@
+
+      /* --- NEW "AURORA UI" SYSTEM --- */
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* Custom scrollbar for a more futuristic feel */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #0a0a0a;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #1d4ed8;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #2563eb;
+      }
+
+      /* Base Body Styles */
+      body {
+        background-color: #030712; /* Richer, darker navy */
+        color: #e2e8f0; /* slate-200 */
+      }
+
+      /* New Background utilities */
+      .bg-radial-gradient-top {
+        background: radial-gradient(ellipse at 50% 0%, rgba(59, 130, 246, 0.15), transparent 70%);
+      }
+      .bg-grid-pattern {
+        background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+        background-size: 2rem 2rem;
+      }
+      
+      /* Interactive Card Glow Effect */
+      .interactive-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 0.75rem; /* 12px */
+        padding: 1px; /* border width */
+        background: radial-gradient(400px circle at var(--mouse-x) var(--mouse-y), rgba(59, 130, 246, 0.4), transparent 80%);
+        -webkit-mask: 
+          linear-gradient(#fff 0 0) content-box,
+          linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+      }
+      .interactive-card:hover::before {
+        opacity: 1;
+      }
+      
+      /* Added for futuristic input glow */
+      @keyframes pulse-glow {
+        0%, 100% {
+          box-shadow: 0 0 8px rgba(59, 130, 246, 0.6), 0 0 12px rgba(59, 130, 246, 0.4);
+          border-color: rgba(96, 165, 250, 0.9);
+        }
+        50% {
+          box-shadow: 0 0 16px rgba(59, 130, 246, 0.9), 0 0 24px rgba(59, 130, 246, 0.6);
+          border-color: rgba(147, 197, 253, 1);
+        }
+      }
+      .form-input-futuristic:focus {
+        outline: none;
+        animation: pulse-glow 2s infinite ease-in-out;
+      }
+
+      /* Added for News Ticker */
+      @keyframes marquee {
+        0% { transform: translateX(0%); }
+        100% { transform: translateX(-50%); }
+      }
+      @keyframes pulse-dot {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+      }
+      .animate-marquee {
+        animation: marquee 60s linear infinite;
+      }
+      .animate-pulse-dot {
+        animation: pulse-dot 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      }
+
+      /* Added for AI Generator streaming cursor */
+      @keyframes blinking-cursor {
+        0%, 100% { border-color: transparent; }
+        50% { border-color: #3b82f6; /* blue-500 */ }
+      }
+      .blinking-cursor {
+        display: inline-block;
+        width: 0;
+        height: 1.2em;
+        margin-left: 4px;
+        border-right: 3px solid #3b82f6;
+        animation: blinking-cursor 1s step-end infinite;
+        vertical-align: sub;
+      }
+
+      /* Updated for a smoother, modern fade-in effect */
+      @keyframes content-fade-in {
+        from {
+          opacity: 0;
+          transform: translateY(15px);
+          filter: blur(5px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+          filter: blur(0);
+        }
+      }
+      .animate-content-fade-in {
+        animation: content-fade-in 1s ease-out forwards;
+      }
+      
+      /* Updated for a more dynamic hero headline animation */
+      @keyframes fade-in-up-word {
+        from {
+          opacity: 0;
+          transform: translateY(30px) skewY(5deg);
+          filter: blur(5px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) skewY(0deg);
+          filter: blur(0);
+        }
+      }
+      .animate-fade-in-up-word {
+        animation: fade-in-up-word 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        opacity: 0; /* Set initial state for animation */
+      }
+
+      /* Utility animation for fading in components */
+      @keyframes fade-in {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .animate-fade-in {
+        animation: fade-in 0.5s ease-out forwards;
+      }
+
+      /* Print styles for Invoice & Quotation Generators */
+      @media print {
+        body * {
+          visibility: hidden;
+        }
+        #invoice-preview, #invoice-preview *,
+        #quotation-preview, #quotation-preview * {
+          visibility: visible;
+        }
+        #invoice-preview, #quotation-preview {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+          margin: 0;
+          padding: 0;
+          border: none;
+          box-shadow: none;
+          color: #000 !important; /* Ensure text is black for printing */
+        }
+        .no-print {
+          display: none !important;
+        }
+        /* Ensure specific parts are black for printing */
+        #invoice-preview h1, #invoice-preview h2, #invoice-preview h3, #invoice-preview p, #invoice-preview span, #invoice-preview td, #invoice-preview th, #invoice-preview div,
+        #quotation-preview h1, #quotation-preview h2, #quotation-preview h3, #quotation-preview p, #quotation-preview span, #quotation-preview td, #quotation-preview th, #quotation-preview div {
+           color: #000 !important;
+        }
+        /* remove background colors for print */
+        #invoice-preview .bg-slate-100,
+        #quotation-preview .bg-slate-100 {
+           background-color: #f1f5f9 !important;
+           -webkit-print-color-adjust: exact; /* For Chrome, Safari */
+           print-color-adjust: exact; /* For Firefox */
+        }
+         #invoice-preview .bg-white,
+         #quotation-preview .bg-white {
+            background-color: #ffffff !important;
+            -webkit-print-color-adjust: exact; /* For Chrome, Safari */
+           print-color-adjust: exact; /* For Firefox */
+         }
+      }
