@@ -1,5 +1,4 @@
-const { getDb } = require('../utils/mongodb');
-const { ObjectId } = require('mongodb');
+const { getDb } = require('./utils/mongodb');
 
 exports.handler = async (event, context) => {
   if (event.httpMethod !== 'DELETE') {
@@ -15,29 +14,28 @@ exports.handler = async (event, context) => {
     if (!id) {
       return {
         statusCode: 400,
-        body: JSON.stringify({ message: 'Submission ID is required.' }),
+        body: JSON.stringify({ message: 'Document ID is required.' }),
       };
     }
 
     const db = await getDb();
-    const collection = db.collection('submissions');
+    const collection = db.collection('documents');
 
-    // MongoDB uses ObjectId for _id, so we need to convert the string ID
     const result = await collection.deleteOne({ id: parseInt(id) });
 
     if (result.deletedCount === 1) {
       return {
         statusCode: 200,
-        body: JSON.stringify({ message: 'Submission deleted successfully.' }),
+        body: JSON.stringify({ message: 'Document deleted successfully.' }),
       };
     } else {
       return {
         statusCode: 404,
-        body: JSON.stringify({ message: 'Submission not found.' }),
+        body: JSON.stringify({ message: 'Document not found.' }),
       };
     }
   } catch (error) {
-    console.error('Error deleting submission:', error);
+    console.error('Error deleting document:', error);
     return {
       statusCode: 500,
       body: JSON.stringify({ message: 'Internal Server Error', error: error.message }),

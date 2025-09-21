@@ -110,7 +110,7 @@ export const SiteDataProvider: React.FC<{ children: ReactNode }> = ({ children }
   useEffect(() => {
     const fetchSubmissions = async () => {
       try {
-        const response = await fetch('/php-backend/contact.php');
+        const response = await fetch('/api/contact');
         if (response.ok) {
           const data = await response.json();
           const submissionsWithDates = data.map((submission: any) => ({

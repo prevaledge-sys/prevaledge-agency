@@ -33,7 +33,7 @@ const DashboardView: React.FC<DashboardViewProps> = ({ setActiveView }) => {
   const handleDeleteSubmission = async (id: number) => {
     if (window.confirm('Are you sure you want to delete this submission?')) {
       try {
-        const response = await fetch(`/php-backend/delete_submission.php?id=${id}`, {
+        const response = await fetch(`/api/delete-submission?id=${id}`, {
           method: 'DELETE',
         });
         if (!response.ok) {
