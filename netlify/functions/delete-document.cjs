@@ -1,4 +1,4 @@
-const { getDb } = require('./utils/mongodb.cjs');
+const { getDb } = require('../utils/mongodb.cjs');
 
 exports.handler = async (event, context) => {
   if (event.httpMethod !== 'DELETE') {
