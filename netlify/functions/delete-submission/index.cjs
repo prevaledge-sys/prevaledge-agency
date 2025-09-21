@@ -1,4 +1,4 @@
-const { getDb } = require('./utils/mongodb');
+const { getDb } = require('../utils/mongodb');
 const { ObjectId } = require('mongodb');
 
 exports.handler = async (event, context) => {
