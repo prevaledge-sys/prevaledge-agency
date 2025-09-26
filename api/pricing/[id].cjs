@@ -1,0 +1,74 @@
+const { getDb } = require('../utils/mongodb.cjs');
+const { ObjectId } = require('mongodb');
+
+exports.handler = async (event, context) => {
+  const allowedOrigins = ['https://prevaledge.com', 'https://prevaledge-agency-eynr-git-main-prevaledges-projects.vercel.app'];
+  const origin = event.headers.origin;
+  const headers = {
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, DELETE, PUT',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+  };
+
+  if (allowedOrigins.includes(origin)) {
+    headers['Access-Control-Allow-Origin'] = origin;
+  }
+
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      headers,
+      body: '',
+    };
+  }
+
+  const { id } = event.queryStringParameters;
+
+  if (event.httpMethod === 'PUT') {
+    try {
+      const updatedPlan = JSON.parse(event.body);
+      const db = await getDb();
+      const collection = db.collection('pricing');
+      const result = await collection.updateOne({ _id: new ObjectId(id) }, { $set: updatedPlan });
+
+      return {
+        statusCode: 200,
+        headers,
+        body: JSON.stringify(result),
+      };
+    } catch (error) {
+      console.error('Error updating pricing plan:', error);
+      return {
+        statusCode: 500,
+        headers,
+        body: JSON.stringify({ message: 'Internal Server Error', error: error.message }),
+      };
+    }
+  }
+
+  if (event.httpMethod === 'DELETE') {
+    try {
+      const db = await getDb();
+      const collection = db.collection('pricing');
+      const result = await collection.deleteOne({ _id: new ObjectId(id) });
+
+      return {
+        statusCode: 200,
+        headers,
+        body: JSON.stringify(result),
+      };
+    } catch (error) {
+      console.error('Error deleting pricing plan:', error);
+      return {
+        statusCode: 500,
+        headers,
+        body: JSON.stringify({ message: 'Internal Server Error', error: error.message }),
+      };
+    }
+  }
+
+  return {
+    statusCode: 405,
+    headers,
+    body: 'Method Not Allowed',
+  };
+};
