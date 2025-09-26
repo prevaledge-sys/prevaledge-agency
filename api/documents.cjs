@@ -2,6 +2,24 @@
 let documents = [];
 
 exports.handler = async function(event, context) {
+  const allowedOrigins = ['https://prevaledge.com', 'https://prevaledge-agency-eynr-git-main-prevaledges-projects.vercel.app'];
+  const origin = event.headers.origin;
+  const headers = {
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, DELETE',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+  };
+
+  if (allowedOrigins.includes(origin)) {
+    headers['Access-Control-Allow-Origin'] = origin;
+  }
+
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      headers,
+      body: '',
+    };
+  }
   const path = event.path.replace('/.netlify/functions', '');
   const method = event.httpMethod;
 
@@ -12,6 +30,7 @@ exports.handler = async function(event, context) {
       console.log('New Document Saved:', newDocument);
       return {
         statusCode: 201,
+        headers,
         body: JSON.stringify(newDocument),
       };
     } else if (method === 'GET') {
@@ -32,6 +51,7 @@ exports.handler = async function(event, context) {
 
       return {
         statusCode: 200,
+        headers,
         body: JSON.stringify(filteredDocuments),
       };
     } else if (method === 'DELETE') {
@@ -42,11 +62,13 @@ exports.handler = async function(event, context) {
         console.log(`Document with ID ${id} deleted.`);
         return {
           statusCode: 200,
+          headers,
           body: JSON.stringify({ message: 'Document deleted successfully.' }),
         };
       } else {
         return {
           statusCode: 404,
+          headers,
           body: JSON.stringify({ message: 'Document not found.' }),
         };
       }
@@ -55,6 +77,7 @@ exports.handler = async function(event, context) {
 
   return {
     statusCode: 404,
+    headers,
     body: 'Not Found',
   };
 };
