@@ -1,11 +1,16 @@
 const { getDb } = require('../utils/mongodb.cjs');
 
 exports.handler = async (event, context) => {
+  const allowedOrigins = ['https://prevaledge.com', 'https://prevaledge-agency-eynr-git-main-prevaledges-projects.vercel.app'];
+  const origin = event.headers.origin;
   const headers = {
-    'Access-Control-Allow-Origin': 'https://prevaledge.com',
     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, DELETE',
     'Access-Control-Allow-Headers': 'Content-Type, Authorization',
   };
+
+  if (allowedOrigins.includes(origin)) {
+    headers['Access-Control-Allow-Origin'] = origin;
+  }
 
   if (event.httpMethod === 'OPTIONS') {
     return {

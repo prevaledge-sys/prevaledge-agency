@@ -1,6 +1,6 @@
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
-const uri = "mongodb+srv://prevaledge_db_user:db_Kori161098@cluster0.3zo2guo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const uri = "mongodb+srv://prevaledge_db_user:Kori161098@cluster0.kcxvsnp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
 let client;
 let clientPromise;

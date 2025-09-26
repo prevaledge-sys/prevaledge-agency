@@ -1,1 +1,1 @@
-module.exports = require('./netlify/functions/contact.js')
+module.exports = require('./netlify/functions/contact/index.js')
