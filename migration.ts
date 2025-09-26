@@ -1,5 +1,5 @@
 import { MongoClient } from 'mongodb';
-import { initialTeamMembers, initialBlogPosts, initialServicePricingData, initialProjects, initialServices, initialTestimonials } from './data/siteData';
+import { initialTeamMembers, initialBlogPosts, initialServicePricingData, initialProjects, initialServices, initialTestimonials } from './data/siteData.ts';
 
 const uri = process.env.MONGODB_URI;
 if (!uri) {
