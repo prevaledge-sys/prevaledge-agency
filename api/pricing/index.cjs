@@ -48,10 +48,11 @@ exports.handler = async (event, context) => {
       const collection = db.collection('pricing');
       const result = await collection.insertOne(newPlan);
 
+      const insertedDoc = await collection.findOne({ _id: result.insertedId });
       return {
         statusCode: 201,
         headers,
-        body: JSON.stringify(result.ops[0]),
+        body: JSON.stringify(insertedDoc),
       };
     } catch (error) {
       console.error('Error adding pricing plan:', error);
