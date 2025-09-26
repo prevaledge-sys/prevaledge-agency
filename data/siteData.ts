@@ -120,30 +120,37 @@ export const initialProjects: Project[] = [
 
 export const initialTeamMembers: TeamMember[] = [
   {
+    id: 'team-5',
+    icon: NeuralSignatureIcon,
+    name: 'Muskan Pathan',
+    title: 'CEO',
+    bio: 'Leads the Prevaledge team in delivering exceptional client results, building strategic partnerships, and steering the company\'s growth.'
+  },
+  {
     id: 'team-1',
     icon: NeuralSignatureIcon,
-    name: 'Alex Maxwell',
-    title: 'CEO & Chief Strategist',
+    name: 'Atul Kumar',
+    title: 'Chief Strategist',
     bio: 'Architects the grand strategies that bridge creative vision with technical execution, ensuring Prevaledge delivers results.'
   },
   {
     id: 'team-2',
     icon: NeuralSignatureIcon,
-    name: 'Dr. Evelyn Reed',
+    name: 'Er. Atul Kori',
     title: 'Lead AI Engineer',
     bio: 'Specializes in crafting and integrating custom AI solutions that feel intuitive, human, and genuinely helpful for our clients.'
   },
   {
     id: 'team-3',
     icon: NeuralSignatureIcon,
-    name: 'Sam Chen',
+    name: 'Omkar Vilas Vichare',
     title: 'Head of UX & Design',
     bio: 'Leads our design team to create beautiful, user-centric experiences that are both accessible and highly effective.'
   },
   {
     id: 'team-4',
     icon: NeuralSignatureIcon,
-    name: 'Maria Garcia',
+    name: 'Siddhartha Kumar',
     title: 'Lead Full-Stack Developer',
     bio: 'Constructs the secure, scalable web foundations upon which our clients build and grow their digital presence.'
   }
