@@ -14,7 +14,7 @@ async function migrate() {
 
     console.log('Migrating team members...');
     await db.collection('team').deleteMany({});
-    await db.collection('team').insertMany(initialTeamMembers as any);
+    await db.collection('team').insertMany(initialTeamMembers.map(({ icon, ...rest }) => rest) as any);
 
     console.log('Migrating blog posts...');
     await db.collection('blog').deleteMany({});
@@ -30,7 +30,7 @@ async function migrate() {
 
     console.log('Migrating services...');
     await db.collection('services').deleteMany({});
-    await db.collection('services').insertMany(initialServices as any);
+    await db.collection('services').insertMany(initialServices.map(({ icon, ...rest }) => rest) as any);
 
     console.log('Migrating testimonials...');
     await db.collection('testimonials').deleteMany({});
