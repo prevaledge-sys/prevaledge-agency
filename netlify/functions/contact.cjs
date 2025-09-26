@@ -1,9 +1,22 @@
-
 const fs = require('fs').promises;
 const path = require('path');
 
 exports.handler = async function(event, context) {
   const documentsPath = path.join(process.cwd(), 'documents.json');
+
+  const headers = {
+    'Access-Control-Allow-Origin': 'https://prevaledge.com',
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, DELETE',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+  };
+
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      headers,
+      body: '',
+    };
+  }
 
   const readDocuments = async () => {
     try {
@@ -26,12 +39,14 @@ exports.handler = async function(event, context) {
       const documents = await readDocuments();
       return {
         statusCode: 200,
+        headers,
         body: JSON.stringify(documents.contactSubmissions || []),
       };
     } catch (error) {
       console.error('Error reading documents.json:', error);
       return {
         statusCode: 500,
+        headers,
         body: JSON.stringify({ message: 'Error reading submissions.' }),
       };
     }
@@ -40,6 +55,7 @@ exports.handler = async function(event, context) {
   if (event.httpMethod !== 'POST') {
     return {
       statusCode: 405,
+      headers,
       body: 'Method Not Allowed',
     };
   }
@@ -51,6 +67,7 @@ exports.handler = async function(event, context) {
     if (!name || !organization || !email || !contactNumber || !message) {
       return {
         statusCode: 400,
+        headers,
         body: JSON.stringify({ message: 'All fields are required.' }),
       };
     }
@@ -71,12 +88,14 @@ exports.handler = async function(event, context) {
 
     return {
       statusCode: 200,
+      headers,
       body: JSON.stringify({ message: 'Submission successful!' }),
     };
   } catch (error) {
     console.error('Error processing submission:', error);
     return {
       statusCode: 500,
+      headers,
       body: JSON.stringify({ message: 'Error processing submission.' }),
     };
   }
