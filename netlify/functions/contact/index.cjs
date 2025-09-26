@@ -1,9 +1,24 @@
 const { getDb } = require('../utils/mongodb.cjs');
 
 exports.handler = async (event, context) => {
+  const headers = {
+    'Access-Control-Allow-Origin': 'https://prevaledge.com',
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, DELETE',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+  };
+
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      headers,
+      body: '',
+    };
+  }
+
   if (event.httpMethod !== 'POST') {
     return {
       statusCode: 405,
+      headers,
       body: JSON.stringify({ message: 'Method Not Allowed' }),
     };
   }
@@ -15,6 +30,7 @@ exports.handler = async (event, context) => {
     if (!name || !organization || !email || !contactNumber || !message) {
       return {
         statusCode: 400,
+        headers,
         body: JSON.stringify({ message: 'All fields are required.' }),
       };
     }
@@ -35,12 +51,14 @@ exports.handler = async (event, context) => {
 
     return {
       statusCode: 200,
+      headers,
       body: JSON.stringify({ message: 'Submission successful!', submission: newSubmission }),
     };
   } catch (error) {
     console.error('Error during contact form submission:', error);
     return {
       statusCode: 500,
+      headers,
       body: JSON.stringify({ message: 'Internal Server Error', error: error.message }),
     };
   }
