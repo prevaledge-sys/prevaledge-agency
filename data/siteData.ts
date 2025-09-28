@@ -1,5 +1,4 @@
 import type { BlogPost, Service, Project, TeamMember, Testimonial, ServicePricing } from '../types';
-
 import AgentIcon from '../components/icons/AgentIcon';
 import MetaverseIcon from '../components/icons/MetaverseIcon';
 import PerformanceIcon from '../components/icons/PerformanceIcon';
@@ -10,6 +9,8 @@ import SeoIcon from '../components/icons/SeoIcon';
 import GeoIcon from '../components/icons/GeoIcon';
 import NeuralSignatureIcon from '../components/icons/NeuralSignatureIcon';
 
+
+
 export const initialServices: Service[] = [
   {
     id: 'ai-automation',
@@ -18,7 +19,7 @@ export const initialServices: Service[] = [
     description: 'We deploy custom AI agents and chatbots to automate workflows, enhance customer support, and provide data-driven insights.',
   },
   {
-    id: 'web-dev',
+    id: 'website-development',
     icon: MetaverseIcon,
     title: 'Website Development',
     description: 'We build beautiful, high-performance websites and applications using the latest technologies for an exceptional user experience.',

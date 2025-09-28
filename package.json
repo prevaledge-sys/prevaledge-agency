@@ -10,7 +10,8 @@
     "start:server": "node server.cjs",
     "dev:server": "ts-node-dev --respawn server.cjs",
     "lint": "eslint \"**/*.{ts,tsx}\"",
-    "migrate": "ts-node migration.ts"
+    "migrate": "node --loader ts-node/esm migration.ts",
+    "compile:migration": "tsc migration.ts --jsx react-jsx --module commonjs --moduleResolution node --outDir dist"
   },
   "dependencies": {
     "@google/genai": "^1.19.0",

@@ -1,11 +1,19 @@
 import { MongoClient } from 'mongodb';
-import { initialTeamMembers, initialBlogPosts, initialServicePricingData, initialProjects, initialServices, initialTestimonials } from './data/siteData.ts';
+import { initialTeamMembers, initialBlogPosts, initialServicePricingData, initialProjects, initialServices, initialTestimonials } from './data/siteData';
 
 const uri = process.env.MONGODB_URI;
 if (!uri) {
   throw new Error('Please define the MONGODB_URI environment variable');
 }
-const client = new MongoClient(uri);
+console.log('Attempting to create MongoClient...');
+let client: MongoClient;
+try {
+  client = new MongoClient(uri);
+  console.log('MongoClient created successfully.');
+} catch (error) {
+  console.error('Error creating MongoClient:', error);
+  process.exit(1);
+}
 
 async function migrate() {
   try {
@@ -44,4 +52,7 @@ async function migrate() {
   }
 }
 
-migrate();
+migrate().catch(error => {
+  console.error('Top-level error during migration:', error);
+  process.exit(1);
+});
